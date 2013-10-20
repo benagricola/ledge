@@ -5,7 +5,7 @@ perl:
 
 # Set cpanm running opts, switch nginx binary to openresty
 env: 
-  - PERL_CPANM_OPT="--notest --force --skip-satisfied" TEST_NGINX_BINARY="openresty" PATH="$PATH:/opt/openresty/sbin"
+  - PERL_CPANM_OPT="--notest --force --skip-satisfied" TEST_NGINX_BINARY="openresty" PATH="$PATH:/opt/openresty/sbin" SQUID_CMD="squid3"
 
 # Install openresty package from squiz repo
 before_install:

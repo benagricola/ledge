@@ -5,9 +5,9 @@ OPENRESTY_PREFIX    = /usr/local/openresty-debug
 TEST_FILE          ?= t
 SENTINEL_TEST_FILE ?= $(TEST_FILE)/sentinel
 
-REDIS_CMD           = redis-server
-SENTINEL_CMD        = $(REDIS_CMD) --sentinel
-SQUID_CMD           = squid
+REDIS_CMD           ?= redis-server
+SENTINEL_CMD        ?= $(REDIS_CMD) --sentinel
+SQUID_CMD           ?= squid
 
 SQUID_PID           = /squid.pid
 SQUID_PREFIX        = /tmp/squid
