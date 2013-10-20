@@ -69,8 +69,9 @@ SENTINEL_CONFIG_FILE = /tmp/sentinel-test-config
 define TEST_LEDGE_SQUID_CONFIG
 visible_hostname 'squid'
 
-http_port 3128 accel defaultsite=localhost no-vhost
+http_port 3128 accel defaultsite=localhost
 
+acl localhost src 127.0.0.1/32
 acl localnet src 127.0.0.0/24
 http_access allow localnet
 http_access allow localhost
@@ -166,11 +167,11 @@ start_squid: check_ports
 	-@mkdir -p $(SQUID_PREFIX)
 	@$(SQUID_CMD) $(args) \
 	    -a $(TEST_LEDGE_SQUID_PORT) \
-	    -f $(SQUID_CONFIG_FILE)
+	    -f $(SQUID_CONFIG_FILE) > /dev/null 2>&1
 
 stop_squid:
 	-@echo "Stopping squid on port $(TEST_LEDGE_SQUID_PORT)"
-	-@$(SQUID_CMD) -f $(SQUID_CONFIG_FILE) -k kill
+	-@$(SQUID_CMD) -f $(SQUID_CONFIG_FILE) -k kill > /dev/null 2>&1
 	-@echo "Removing $(SQUID_CONFIG_FILE)"
 	@rm -f $(SQUID_CONFIG_FILE)
 
