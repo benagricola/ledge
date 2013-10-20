@@ -9,13 +9,14 @@ env:
 
 # Install openresty package from squiz repo
 before_install:
-  - "PACKAGE='openresty_1.2.8.3-1_amd64.deb'; wget http://packages.squiz.co.uk/ubuntu/12.04/$PACKAGE && sudo dpkg --force-depends -i $PACKAGE"
+  - "PACKAGE='openresty_1.4.2.9-1_amd64.deb'; wget http://packages.squiz.co.uk/ubuntu/12.04/$PACKAGE && sudo dpkg --force-depends -i $PACKAGE"
   - "sudo apt-get -f install" # Fix dependencies of the installed package if required.
+  - "sudo apt-get install squid"
   - "sudo chmod -R 777 /var/log/openresty" # Make sure the default log can be written to by an unprivileged user
 
 # Install Test::Nginx suite via cpanm
 install:
   - "cpanm Test::Nginx" 
 
-before_script: "sudo stop redis-server" # Make sure the default redis is stopped
+before_script: "sudo stop redis-server" # Make sure the default redis on Travis CI is stopped
 script: "make test_all"
